@@ -1,95 +1,85 @@
-import Image from "next/image";
-import styles from "./page.module.css";
+import Image from "next/image"
+import styles from "./page.module.css"
 
-export default function Home() {
+interface Pet {
+  description: string
+  height: number
+  id: number
+  kind: string
+  length: number
+  name: string
+  photo_url: string
+  weight: number
+}
+
+export default async function Home() {
+  const response = await fetch(
+    "https://my-json-server.typicode.com/Feverup/fever_pets_data/pets"
+  )
+  const pets: Pet[] = await response.json()
   return (
-    <div className={styles.page}>
-      <main className={styles.main}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol>
-          <li>
-            Get started by editing <code>src/app/page.tsx</code>.
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
-
-        <div className={styles.ctas}>
-          <a
-            className={styles.primary}
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className={styles.logo}
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-            className={styles.secondary}
-          >
-            Read our docs
-          </a>
+    <div>
+      <main style={{ padding: "100px" }}>
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))",
+            gap: "3em 2.5em",
+          }}
+        >
+          {pets.map((pet: Pet) => (
+            <div
+              key={pet.id}
+              style={{
+                padding: "1.5em",
+                boxShadow: "rgba(0, 0, 0, 0.1) 0px 0px 5px 3px",
+                border: "1px solid rgba(0, 0, 0, 0.1)",
+                borderRadius: "8px",
+              }}
+            >
+              <div
+                style={{
+                  display: "grid",
+                  gridTemplateColumns: "2fr",
+                  gridAutoFlow: "column",
+                }}
+              >
+                <Image
+                  style={{ objectFit: "cover" }}
+                  src={pet.photo_url}
+                  alt="pet image"
+                  width={100}
+                  height={100}
+                  priority
+                />
+                <div
+                  style={{
+                    display: "grid",
+                    gridAutoFlow: "rows",
+                    gap: "0.5em",
+                  }}
+                >
+                  <p>
+                    <b>Name: </b>
+                    {pet.name}
+                  </p>
+                  <p>
+                    <b>Kind: </b> {pet.kind}
+                  </p>
+                  <p>
+                    <b>Weight: </b>
+                    {pet.weight}
+                  </p>
+                  <p>
+                    <b>Heigth: </b>
+                    {pet.height}
+                  </p>
+                </div>
+              </div>
+            </div>
+          ))}
         </div>
       </main>
-      <footer className={styles.footer}>
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
     </div>
-  );
+  )
 }
