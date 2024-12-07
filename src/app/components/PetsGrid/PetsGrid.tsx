@@ -11,10 +11,19 @@ import { Pet } from "@/app/types"
 import { useGetUrlParams } from "@/app/helpers/useGetUrlParams"
 import Image from "../../ui/Image"
 import TableOptions from "../TableOptions"
+import { useCallback } from "react"
+import { useRouter } from "next/navigation"
 
 const PetsGrid: React.FC = () => {
+  const router = useRouter()
   const { sort, page } = useGetUrlParams()
   const { data, isPlaceholderData } = useGetPets({ sort, page })
+  const handleOnClick = useCallback(
+    (id: number) => {
+      router.push(`/${id}`)
+    },
+    [router]
+  )
   if (!data) return null
   const hasMoreData = data?.length > 0
   return (
@@ -25,7 +34,7 @@ const PetsGrid: React.FC = () => {
       />
       <PetContainer>
         {data.map((pet: Pet) => (
-          <PetCard key={pet.id}>
+          <PetCard key={pet.id} onClick={() => handleOnClick(pet.id)}>
             <PetCardContent>
               <Image src={pet.photo_url} alt="pet image" />
               <PetDescription>
@@ -43,6 +52,10 @@ const PetsGrid: React.FC = () => {
                 <p>
                   <b>Heigth: </b>
                   {pet.height}
+                </p>
+                <p>
+                  <b>Length: </b>
+                  {pet.length}cm
                 </p>
               </PetDescription>
             </PetCardContent>

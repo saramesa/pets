@@ -1,4 +1,4 @@
-import { Pet } from "../../types"
+import { PetData } from "../../types"
 
 export interface Params {
   sort: string
@@ -10,6 +10,6 @@ export const getPets = async (params?: Params) => {
     `https://my-json-server.typicode.com/Feverup/fever_pets_data/pets/?_page=${params?.page}&_per_page=10&_sort=${params?.sort}`
   )
 
-  const pets: Pet[] = await response.json()
+  const pets: PetData[] = await response.json()
   return pets
 }

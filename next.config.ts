@@ -1,20 +1,23 @@
-import type { NextConfig } from "next";
+import type { NextConfig } from "next"
 
 const nextConfig: NextConfig = {
+  compiler: {
+    styledComponents: true,
+  },
   images: {
     remotePatterns: [
       {
         protocol: "https",
         hostname: "cdn2.thedogapi.com",
-        pathname: "/**", 
+        pathname: "/**",
       },
       {
         protocol: "https",
         hostname: "cdn2.thecatapi.com",
-        pathname: "/**", 
+        pathname: "/**",
       },
     ],
   },
-};
+}
 
-export default nextConfig;
+export default nextConfig
