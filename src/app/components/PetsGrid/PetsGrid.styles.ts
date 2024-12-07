@@ -11,6 +11,7 @@ export const PetCard = styled.div`
   box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 5px 3px;
   border: 1px solid rgba(0, 0, 0, 0.1);
   border-radius: 8px;
+  cursor: pointer;
 `
 
 export const PetCardContent = styled.div`
