@@ -20,9 +20,12 @@ const PetsGrid: React.FC = () => {
   const { data, isPlaceholderData } = useGetPets({ sort, page })
   const handleOnClick = useCallback(
     (id: number) => {
-      router.push(`/${id}`)
+      const params = new URLSearchParams()
+      params.set("_page", page.toString())
+      params.set("_sort", sort)
+      router.push(`/${id}?${params.toString()}`)
     },
-    [router]
+    [router, page, sort]
   )
   if (!data) return null
   const hasMoreData = data?.length > 0
@@ -36,7 +39,7 @@ const PetsGrid: React.FC = () => {
         {data.map((pet: Pet) => (
           <PetCard key={pet.id} onClick={() => handleOnClick(pet.id)}>
             <PetCardContent>
-              <Image src={pet.photo_url} alt="pet image" />
+              <Image src={pet.url} alt="pet image" />
               <PetDescription>
                 <p>
                   <b>Name: </b>
