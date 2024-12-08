@@ -19,11 +19,6 @@ export const PetCardContent = styled.div`
   grid-template-columns: 2fr;
   grid-auto-flow: column;
 `
-
-export const StyledImage = styled(Image)`
-  object-fit: "cover";
-`
-
 export const PetDescription = styled.div`
   display: grid;
   grid-auto-flow: rows;
