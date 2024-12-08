@@ -8,11 +8,15 @@ interface Props {
 }
 
 const PetOfTheDay: React.FC<Props> = ({ pets }) => {
-  const { petOfTheDay, handleClickPetOfTheDay } = useGetPetOfTheDay(pets)
+  const { petOfTheDay, handleClickPetOfTheDay, isLoading } =
+    useGetPetOfTheDay(pets)
 
   return (
     <div>
-      <StyledButton onClick={handleClickPetOfTheDay} disabled={Boolean(petOfTheDay)}>
+      <StyledButton
+        onClick={handleClickPetOfTheDay}
+        disabled={isLoading || !!petOfTheDay}
+      >
         Pet of the Day
       </StyledButton>
       <Container style={{ minHeight: "140px" }}>
