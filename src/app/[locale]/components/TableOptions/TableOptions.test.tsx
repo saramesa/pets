@@ -3,13 +3,13 @@ import userEvent from "@testing-library/user-event"
 import { useRouter } from "next/navigation"
 import { useGetUrlParams } from "@/utils/useGetUrlParams"
 import TableOptions from "./TableOptions"
-
+import { TestProviders } from "@/tests-utils/TestProviders"
 
 jest.mock("next/navigation", () => ({
   useRouter: jest.fn(),
 }))
 
-jest.mock("@/utils/useGetUrlParams", () => ({
+jest.mock("@/app/utils/useGetUrlParams", () => ({
   useGetUrlParams: jest.fn(),
 }))
 
@@ -19,28 +19,34 @@ describe("TableOptions", () => {
   beforeEach(() => {
     mockPush = jest.fn()
     ;(useRouter as jest.Mock).mockReturnValue({ push: mockPush })
-
     ;(useGetUrlParams as jest.Mock).mockReturnValue({
       sort: "name",
       page: 1,
     })
   })
 
-
   it("renders SortOptions and Pagination components", () => {
-    render(<TableOptions isPlaceholderData={false} hasMoreData={true} />)
-    
+    render(
+      <TestProviders>
+        <TableOptions isPlaceholderData={false} hasMoreData={true} />
+      </TestProviders>
+    )
+
     expect(screen.getByLabelText(/Sort by:/i)).toBeInTheDocument()
 
     expect(screen.getByRole("button", { name: /next/i })).toBeInTheDocument()
   })
 
   it("updates URL when sort option is changed", async () => {
-    render(<TableOptions isPlaceholderData={false} hasMoreData={true} />)
+    render(
+      <TestProviders>
+        <TableOptions isPlaceholderData={false} hasMoreData={true} />
+      </TestProviders>
+    )
 
     const selectElement = screen.getByRole("combobox", {
       name: /Sort by:/i,
-    }) as HTMLSelectElement
+    })
 
     expect(selectElement).toHaveValue("name")
 
@@ -50,11 +56,14 @@ describe("TableOptions", () => {
     )
 
     expect(mockPush).toHaveBeenCalledWith("/?_page=1&_sort=weight")
-
   })
 
   it("updates URL when pagination is changed", async () => {
-    render(<TableOptions isPlaceholderData={false} hasMoreData={true} />)
+    render(
+      <TestProviders>
+        <TableOptions isPlaceholderData={false} hasMoreData={true} />
+      </TestProviders>
+    )
 
     const nextButton = screen.getByRole("button", { name: /next/i })
 

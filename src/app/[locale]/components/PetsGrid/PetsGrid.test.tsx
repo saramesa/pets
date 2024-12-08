@@ -4,8 +4,9 @@ import PetsGrid from "./PetsGrid"
 import { useGetPets } from "@/infrastructure/hooks/useGetPets"
 import { useRouter, useSearchParams } from "next/navigation"
 import { MockedPets } from "@/__mocks__/Pet"
+import { TestProviders } from "@/tests-utils/TestProviders"
 
-jest.mock("@/infrastructure/hooks/useGetPets")
+jest.mock("@/app/infrastructure/hooks/useGetPets")
 jest.mock("next/navigation", () => ({
   useRouter: jest.fn(),
   useSearchParams: jest.fn(),
@@ -33,7 +34,11 @@ describe("PetsGrid", () => {
   })
 
   it("renders pet cards correctly", async () => {
-    render(<PetsGrid />)
+    render(
+      <TestProviders>
+        <PetsGrid />
+      </TestProviders>
+    )
 
     expect(screen.getByText(MockedPets[0].name)).toBeInTheDocument()
     const petImage = screen.getByRole("img", {
@@ -46,7 +51,11 @@ describe("PetsGrid", () => {
     const mockPush = jest.fn()
     mockUseRouter.mockReturnValueOnce({ push: mockPush })
 
-    render(<PetsGrid />)
+    render(
+      <TestProviders>
+        <PetsGrid />
+      </TestProviders>
+    )
 
     const petCard = screen.getByText(MockedPets[0].name).closest("div")
     userEvent.click(petCard!)
@@ -62,7 +71,11 @@ describe("PetsGrid", () => {
       isPlaceholderData: false,
     })
 
-    render(<PetsGrid />)
+    render(
+      <TestProviders>
+        <PetsGrid />
+      </TestProviders>
+    )
 
     expect(screen.queryByText("Name:")).toBeNull()
   })

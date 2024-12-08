@@ -3,8 +3,9 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
 import { MockedDog } from "@/__mocks__/Pet"
 import PetDetailPage from "./page"
 import { useGetPet } from "@/infrastructure/hooks/useGetPet"
+import { TestProviders } from "@/tests-utils/TestProviders"
 
-jest.mock("@/infrastructure/hooks/useGetPet")
+jest.mock("@/app/infrastructure/hooks/useGetPet")
 
 const mockUseGetPet = useGetPet as jest.Mock
 
@@ -16,7 +17,9 @@ describe("PetDetailPage", () => {
 
     render(
       <QueryClientProvider client={queryClient}>
-        <PetDetailPage params={params} />
+        <TestProviders>
+          <PetDetailPage params={params} />
+        </TestProviders>
       </QueryClientProvider>
     )
 

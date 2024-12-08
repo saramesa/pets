@@ -3,8 +3,9 @@ import userEvent from "@testing-library/user-event"
 import PetOfTheDay from "./PetOfTheDay"
 import { useGetPetOfTheDay } from "@/utils/useGetPetOfTheDay"
 import { MockedPets } from "@/__mocks__/Pet"
+import { TestProviders } from "@/tests-utils/TestProviders"
 
-jest.mock("@/utils/useGetPetOfTheDay")
+jest.mock("@/app/utils/useGetPetOfTheDay")
 
 describe("PetOfTheDay", () => {
   const mockUseGetPetOfTheDay = useGetPetOfTheDay as jest.Mock
@@ -16,10 +17,14 @@ describe("PetOfTheDay", () => {
       isLoading: true,
     })
 
-    render(<PetOfTheDay pets={MockedPets} />)
+    render(
+      <TestProviders>
+        <PetOfTheDay pets={MockedPets} />
+      </TestProviders>
+    )
 
     const button = screen.getByText("Pet of the Day")
-    expect(button).toBeDisabled() 
+    expect(button).toBeDisabled()
   })
 
   it("disables the button when petOfTheDay is already set", () => {
@@ -29,10 +34,14 @@ describe("PetOfTheDay", () => {
       isLoading: false,
     })
 
-    render(<PetOfTheDay pets={MockedPets} />)
+    render(
+      <TestProviders>
+        <PetOfTheDay pets={MockedPets} />
+      </TestProviders>
+    )
 
     const button = screen.getByText("Pet of the Day")
-    expect(button).toBeDisabled() 
+    expect(button).toBeDisabled()
   })
 
   it("enables the button when no pet is selected and isLoading is false", () => {
@@ -42,10 +51,14 @@ describe("PetOfTheDay", () => {
       isLoading: false,
     })
 
-    render(<PetOfTheDay pets={MockedPets} />)
+    render(
+      <TestProviders>
+        <PetOfTheDay pets={MockedPets} />
+      </TestProviders>
+    )
 
     const button = screen.getByText("Pet of the Day")
-    expect(button).toBeEnabled() 
+    expect(button).toBeEnabled()
   })
 
   it("displays the pet of the day name and image when selected", async () => {
@@ -55,12 +68,16 @@ describe("PetOfTheDay", () => {
       isLoading: false,
     })
 
-    render(<PetOfTheDay pets={MockedPets} />)
+    render(
+      <TestProviders>
+        <PetOfTheDay pets={MockedPets} />
+      </TestProviders>
+    )
 
     const petName = await screen.findByText(MockedPets[0].name)
     const petImage = screen.getByRole("img", { name: MockedPets[0].name })
 
-    expect(petName).toBeInTheDocument() 
+    expect(petName).toBeInTheDocument()
     expect(petImage).toHaveAttribute("alt", MockedPets[0].name)
   })
 
@@ -73,13 +90,17 @@ describe("PetOfTheDay", () => {
       isLoading: false,
     })
 
-    render(<PetOfTheDay pets={MockedPets} />)
+    render(
+      <TestProviders>
+        <PetOfTheDay pets={MockedPets} />
+      </TestProviders>
+    )
 
     const button = screen.getByText("Pet of the Day")
     userEvent.click(button)
 
     await waitFor(() => {
-      expect(handleClickPetOfTheDay).toHaveBeenCalled() 
+      expect(handleClickPetOfTheDay).toHaveBeenCalled()
     })
   })
 })

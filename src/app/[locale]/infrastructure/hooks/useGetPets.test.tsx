@@ -1,5 +1,4 @@
-import { useQuery } from "@tanstack/react-query"
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
+import { QueryClient, QueryClientProvider, useQuery } from "@tanstack/react-query"
 import { MockedPets } from "@/__mocks__/Pet"
 import { renderHook, waitFor } from "@testing-library/react"
 import { useGetPets } from "./useGetPets"

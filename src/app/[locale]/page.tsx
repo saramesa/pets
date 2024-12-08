@@ -6,6 +6,7 @@ import {
 import styles from "./page.module.css"
 import PetsGrid from "./components/PetsGrid/PetsGrid"
 import { getPets } from "./infrastructure/services/getPets"
+import Title from "./components/Title"
 
 export default async function Home() {
   const queryClient = new QueryClient()
@@ -19,6 +20,7 @@ export default async function Home() {
     <div>
       <main className={styles.main}>
         <HydrationBoundary state={dehydrate(queryClient)}>
+          <Title />
           <PetsGrid />
         </HydrationBoundary>
       </main>
