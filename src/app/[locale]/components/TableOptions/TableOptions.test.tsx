@@ -1,11 +1,11 @@
 import { render, screen } from "@testing-library/react"
 import userEvent from "@testing-library/user-event"
-import { useRouter } from "next/navigation"
+import { useRouter } from "../../../../i18n/routing"
 import { useGetUrlParams } from "@/utils/useGetUrlParams"
 import TableOptions from "./TableOptions"
 import { TestProviders } from "@/tests-utils/TestProviders"
 
-jest.mock("next/navigation", () => ({
+jest.mock("../../../../i18n/routing.ts", () => ({
   useRouter: jest.fn(),
 }))
 
@@ -55,7 +55,10 @@ describe("TableOptions", () => {
       screen.getByRole("option", { name: "Weight (Ascending)" })
     )
 
-    expect(mockPush).toHaveBeenCalledWith("/?_page=1&_sort=weight")
+    expect(mockPush).toHaveBeenCalledWith({
+      pathname: "/",
+      query: { page: "1", sort: "weight" },
+    })
   })
 
   it("updates URL when pagination is changed", async () => {
@@ -69,6 +72,9 @@ describe("TableOptions", () => {
 
     await userEvent.click(nextButton)
 
-    expect(mockPush).toHaveBeenCalledWith("/?_page=2&_sort=name")
+    expect(mockPush).toHaveBeenCalledWith({
+      pathname: "/",
+      query: { page: "2", sort: "name" },
+    })
   })
 })

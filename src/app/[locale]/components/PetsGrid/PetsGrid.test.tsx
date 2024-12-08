@@ -2,18 +2,16 @@ import { render, screen, waitFor } from "@testing-library/react"
 import userEvent from "@testing-library/user-event"
 import PetsGrid from "./PetsGrid"
 import { useGetPets } from "@/infrastructure/hooks/useGetPets"
-import { useRouter, useSearchParams } from "next/navigation"
+import { useRouter } from "../../../../i18n/routing"
 import { MockedPets } from "@/__mocks__/Pet"
 import { TestProviders } from "@/tests-utils/TestProviders"
 
 jest.mock("@/app/infrastructure/hooks/useGetPets")
-jest.mock("next/navigation", () => ({
+jest.mock("../../../../i18n/routing.ts", () => ({
   useRouter: jest.fn(),
-  useSearchParams: jest.fn(),
 }))
 
 const mockUseRouter = useRouter as jest.Mock
-const mockUseSearchParams = useSearchParams as jest.Mock
 const mockUseGetPets = useGetPets as jest.Mock
 
 describe("PetsGrid", () => {
@@ -25,12 +23,6 @@ describe("PetsGrid", () => {
     mockUseRouter.mockReturnValue({
       push: jest.fn(),
     })
-    mockUseSearchParams.mockReturnValue(
-      new URLSearchParams({
-        page: "1",
-        sort: "name",
-      })
-    )
   })
 
   it("renders pet cards correctly", async () => {
@@ -61,7 +53,10 @@ describe("PetsGrid", () => {
     userEvent.click(petCard!)
 
     await waitFor(() => {
-      expect(mockPush).toHaveBeenCalledWith(`/27?_page=1&_sort=name`)
+      expect(mockPush).toHaveBeenCalledWith({
+        pathname: "/27",
+        query: { page: "1", sort: "name" },
+      })
     })
   })
 
