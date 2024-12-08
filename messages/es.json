@@ -1,0 +1,39 @@
+{
+  "PetOfTheDay": {
+    "name": "Mascota del día"
+  },
+  "Pagination": {
+    "previous-page": "Pág. Anterior",
+    "next-page": "Pág. Siguiente"
+  },
+  "PetsGrid": {
+    "name": "Nombre",
+    "kind": "Especie",
+    "weight": "Peso",
+    "height": "Altura",
+    "length": "Longitud",
+    "cat": "Gato",
+    "dog": "Perro",
+    "unknown": "Desconocido"
+  },
+  "SortOptions": {
+    "sort-by": "Ordenar por",
+    "name": "Nombre (Ascendente)",
+    "weight": "Peso (Ascendente)",
+    "height": "Altura (Ascendente)",
+    "kind": "Especie (Ascendente)"
+  },
+  "PetDetail": {
+    "name": "Nombre",
+    "weight": "Peso",
+    "height": "Altura",
+    "length": "Longitud",
+    "kind": "Especie",
+    "lives": "Vidas",
+    "health": "Salud",
+    "description": "Descripción",
+    "cat": "Gato",
+    "dog": "Perro",
+    "unknown": "Desconocido"
+  }
+}

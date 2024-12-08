@@ -1,0 +1,39 @@
+{
+  "PetOfTheDay": {
+    "name": "Pet of the Day"
+  },
+  "Pagination": {
+    "previous-page": "Previous Page",
+    "next-page": "Next Page"
+  },
+  "PetsGrid": {
+    "name": "Name",
+    "kind": "Kind",
+    "weight": "Weight",
+    "height": "Height",
+    "length": "Length",
+    "cat": "Cat",
+    "dog": "Dog",
+    "unknown": "Unknown"
+  },
+  "SortOptions": {
+    "sort-by": "Sort by",
+    "name": "Name (Ascending)",
+    "weight": "Weight (Ascending)",
+    "height": "Height (Ascending)",
+    "kind": "Kind (Ascending)"
+  },
+  "PetDetail": {
+    "name": "Name",
+    "weight": "Weight",
+    "height": "Height",
+    "length": "Length",
+    "kind": "Kind",
+    "lives": "Lives",
+    "health": "Health",
+    "description": "Description",
+    "cat": "Cat",
+    "dog": "Dog",
+    "unknown": "Unknown"
+  }
+}
