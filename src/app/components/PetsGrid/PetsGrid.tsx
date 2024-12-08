@@ -8,11 +8,12 @@ import {
 } from "./PetsGrid.styles"
 import { useGetPets } from "@/app/infrastructure/hooks/useGetPets"
 import { Pet } from "@/app/types"
-import { useGetUrlParams } from "@/app/helpers/useGetUrlParams"
+import { useGetUrlParams } from "@/app/utils/useGetUrlParams"
 import Image from "../../ui/Image"
 import TableOptions from "../TableOptions"
 import { useCallback } from "react"
 import { useRouter } from "next/navigation"
+import PetOfTheDay from "../PetOfTheDay"
 
 const PetsGrid: React.FC = () => {
   const router = useRouter()
@@ -31,6 +32,7 @@ const PetsGrid: React.FC = () => {
   const hasMoreData = data?.length > 0
   return (
     <>
+      <PetOfTheDay pets={data} />
       <TableOptions
         isPlaceholderData={isPlaceholderData}
         hasMoreData={hasMoreData}
