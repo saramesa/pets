@@ -1,4 +1,4 @@
-import { useRouter } from "next/navigation"
+import { useRouter } from "../../../../i18n/routing"
 import Pagination from "../Pagination"
 import SortOptions from "../SortOptions"
 import { Container } from "./TableOptions.styles"
@@ -14,16 +14,10 @@ const TableOptions: React.FC<Props> = ({ isPlaceholderData, hasMoreData }) => {
   const { sort, page } = useGetUrlParams()
   const handleSortChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const newSort = event.target.value
-    const params = new URLSearchParams()
-    params.set("_page", "1")
-    params.set("_sort", newSort)
-    router.push(`/?${params.toString()}`)
+    router.push({ pathname: "/", query: { page: "1", sort: newSort } })
   }
   const handlePaginationChange = (newPage: number) => {
-    const params = new URLSearchParams()
-    params.set("_page", newPage.toString())
-    params.set("_sort", sort)
-    router.push(`/?${params.toString()}`)
+    router.push({ pathname: "/", query: { page: newPage.toString(), sort: sort } })
   }
   return (
     <Container>

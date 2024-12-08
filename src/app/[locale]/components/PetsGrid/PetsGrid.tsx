@@ -12,7 +12,7 @@ import { useGetUrlParams } from "@/utils/useGetUrlParams"
 import Image from "@/ui/Image"
 import TableOptions from "../TableOptions"
 import { useCallback } from "react"
-import { useRouter } from "next/navigation"
+import { useRouter } from "../../../../i18n/routing"
 import PetOfTheDay from "../PetOfTheDay"
 import { useTranslations } from "next-intl"
 
@@ -23,10 +23,10 @@ const PetsGrid: React.FC = () => {
   const { data, isPlaceholderData } = useGetPets({ sort, page })
   const handleOnClick = useCallback(
     (id: number) => {
-      const params = new URLSearchParams()
-      params.set("_page", page.toString())
-      params.set("_sort", sort)
-      router.push(`/${id}?${params.toString()}`)
+      router.push({
+        pathname: `/${id}`,
+        query: { sort, page: page.toString() },
+      })
     },
     [router, page, sort]
   )
