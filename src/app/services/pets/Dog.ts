@@ -1,17 +1,39 @@
 import { HealthStatus, Pet, PetKind } from "../../types"
 
 export class Dog implements Pet {
+  id: number
   name: string
   kind = PetKind.Dog
   weight: number
   height: number
   length: number
+  url: string
+  description: string
 
-  constructor(name: string, weight: number, height: number, length: number) {
+  constructor({
+    id,
+    name,
+    weight,
+    height,
+    length,
+    url,
+    description
+  }: {
+    id: number
+    name: string
+    weight: number
+    height: number
+    length: number
+    url: string
+  description: string
+  }) {
+    this.id = id
     this.name = name
     this.weight = weight
     this.height = height
     this.length = length
+    this.url = url
+    this.description = description
   }
 
   calculateHealth(): string {

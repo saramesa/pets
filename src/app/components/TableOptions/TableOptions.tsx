@@ -2,7 +2,7 @@ import { useRouter } from "next/navigation"
 import Pagination from "../Pagination"
 import SortOptions from "../SortOptions"
 import { Container } from "./TableOptions.styles"
-import { useGetUrlParams } from "@/app/helpers/useGetUrlParams"
+import { useGetUrlParams } from "@/app/utils/useGetUrlParams"
 
 interface Props {
   isPlaceholderData: boolean
@@ -23,7 +23,6 @@ const TableOptions: React.FC<Props> = ({ isPlaceholderData, hasMoreData }) => {
     const params = new URLSearchParams()
     params.set("_page", newPage.toString())
     params.set("_sort", sort)
-
     router.push(`/?${params.toString()}`)
   }
   return (

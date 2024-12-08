@@ -8,11 +8,12 @@ import {
 } from "./PetsGrid.styles"
 import { useGetPets } from "@/app/infrastructure/hooks/useGetPets"
 import { Pet } from "@/app/types"
-import { useGetUrlParams } from "@/app/helpers/useGetUrlParams"
+import { useGetUrlParams } from "@/app/utils/useGetUrlParams"
 import Image from "../../ui/Image"
 import TableOptions from "../TableOptions"
 import { useCallback } from "react"
 import { useRouter } from "next/navigation"
+import PetOfTheDay from "../PetOfTheDay"
 
 const PetsGrid: React.FC = () => {
   const router = useRouter()
@@ -20,14 +21,18 @@ const PetsGrid: React.FC = () => {
   const { data, isPlaceholderData } = useGetPets({ sort, page })
   const handleOnClick = useCallback(
     (id: number) => {
-      router.push(`/${id}`)
+      const params = new URLSearchParams()
+      params.set("_page", page.toString())
+      params.set("_sort", sort)
+      router.push(`/${id}?${params.toString()}`)
     },
-    [router]
+    [router, page, sort]
   )
   if (!data) return null
   const hasMoreData = data?.length > 0
   return (
     <>
+      <PetOfTheDay pets={data} />
       <TableOptions
         isPlaceholderData={isPlaceholderData}
         hasMoreData={hasMoreData}
@@ -36,7 +41,7 @@ const PetsGrid: React.FC = () => {
         {data.map((pet: Pet) => (
           <PetCard key={pet.id} onClick={() => handleOnClick(pet.id)}>
             <PetCardContent>
-              <Image src={pet.photo_url} alt="pet image" />
+              <Image src={pet.url} alt="pet image" />
               <PetDescription>
                 <p>
                   <b>Name: </b>

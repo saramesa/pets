@@ -1,10 +1,14 @@
 import { keepPreviousData, useQuery } from "@tanstack/react-query"
 import { getPet, Params } from "../services/getPet"
+import { createPet } from "@/app/services/pets/PetFactory"
 
 export const useGetPet = (params: Params) => {
   return useQuery({
     queryKey: ["pet", params.id],
-    queryFn: () => getPet(params),
+    queryFn: async () => {
+      const petData = await getPet({ id: params.id })
+      return createPet(petData)
+    },
     placeholderData: keepPreviousData,
   })
 }

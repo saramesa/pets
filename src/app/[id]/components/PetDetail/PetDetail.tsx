@@ -3,7 +3,6 @@
 import { useGetPet } from "@/app/infrastructure/hooks/useGetPet"
 import CustomImage from "@/app/ui/Image"
 import { Container, DetailContainer } from "./PetDetail.styles"
-import { createPet } from "@/app/services/pets/PetFactory"
 import PetLives from "../PetLives/PetLives"
 
 interface Props {
@@ -13,13 +12,12 @@ interface Props {
 const PetDetail: React.FC<Props> = ({ id }) => {
   const { data } = useGetPet({ id })
   if (!data) return null
-  const pet = createPet(data)
 
   return (
     <Container>
       <DetailContainer>
         <CustomImage
-          src={data?.photo_url}
+          src={data?.url}
           alt="pet image"
           width={200}
           height={200}
@@ -27,32 +25,32 @@ const PetDetail: React.FC<Props> = ({ id }) => {
         <div>
           <p>
             <b>Name: </b>
-            {pet.name}
+            {data.name}
           </p>
           <p>
             <b>Weight: </b>
-            {pet.weight}gr
+            {data.weight}gr
           </p>
           <p>
             <b>Height: </b>
-            {pet.height}cm
+            {data.height}cm
           </p>
           <p>
             <b>Length: </b>
-            {pet.length}cm
+            {data.length}cm
           </p>
           <p>
             <b>Kind: </b>
-            {pet.kind}
+            {data.kind}
           </p>
-          {pet.lives && (
+          {data.lives && (
             <p>
-              <b>Lives:</b> <PetLives lives={pet.lives} />
+              <b>Lives:</b> <PetLives lives={data.lives} />
             </p>
           )}
         </div>
         <div>
-          <b>Health: {pet.calculateHealth()}</b>
+          <b>Health: {data.calculateHealth()}</b>
         </div>
       </DetailContainer>
       <div>
