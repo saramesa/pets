@@ -30,6 +30,7 @@ const PetsGrid: React.FC = () => {
   )
   if (!data) return null
   const hasMoreData = data?.length > 0
+
   return (
     <>
       <PetOfTheDay pets={data} />
@@ -41,7 +42,7 @@ const PetsGrid: React.FC = () => {
         {data.map((pet: Pet) => (
           <PetCard key={pet.id} onClick={() => handleOnClick(pet.id)}>
             <PetCardContent>
-              <Image src={pet.url} alt="pet image" />
+              <Image src={pet.url} alt={`pet image ${pet.name}`} />
               <PetDescription>
                 <p>
                   <b>Name: </b>

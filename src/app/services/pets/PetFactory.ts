@@ -4,7 +4,7 @@ import { Dog } from "./Dog"
 
 type PetConstructor = (data: PetData) => Pet
 
-class PetFactory {
+export class PetFactory {
   private static readonly petConstructors: Record<PetKind, PetConstructor> = {
     [PetKind.Cat]: (data: PetData) =>
       new Cat({
