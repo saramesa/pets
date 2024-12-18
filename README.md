@@ -1,4 +1,4 @@
-# Fever Pets
+# Pets
 
 A web application to manage and view information about pets.
 
